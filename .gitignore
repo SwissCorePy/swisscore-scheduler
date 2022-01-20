@@ -6,3 +6,4 @@
 build/*
 venv/*
 */__pycache__
+*.gz
