@@ -16,17 +16,15 @@
  
 ## <p align="left">Installation
 
-### install using pip <i>(recommended)</i>
+### install latest release<i>(recommended)</i>
  ***NOTE: If you are on macOS or Linux you may have to use `pip3`.***
 ```
 pip install swisscore-scheduler
 ```
 ### install from source
- ***NOTE: If you are on macOS or Linux you may have to use `python3`.***
+ ***NOTE: If you are on macOS or Linux you may have to use `pip3`.***
 ```
-git clone https://github.com/SwissCorePy/swisscore-scheduler
-cd swisscore-scheduler
-python setup.py install
+pip install git+https://github.com/SwissCorePy/swisscore-scheduler
 ```
 
 ---
