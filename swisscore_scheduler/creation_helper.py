@@ -35,17 +35,19 @@ class FutureTask:
 
     def create(self, func: Callable, *args, **kwargs):
         return tasks.ScheduledTask(
-            self.scheduler, 
-            self.type, 
-            self.at_time, 
-            self.at_date, 
-            self.interval, 
+            self.scheduler,
+            self.type,
+            self.at_time,
+            self.at_date,
+            self.interval,
             self.tags,
             self.fixed_datetime,
-            self.fixed_month, 
-            self.fixed_month_day, 
-            self.fixed_weekday, 
-            func, args, kwargs
+            self.fixed_month,
+            self.fixed_month_day,
+            self.fixed_weekday,
+            func,
+            args,
+            kwargs,
         )
 
 
@@ -82,12 +84,12 @@ class UnitSelector(Creator):
     def hour(self) -> MinuteSelector:
         self._future_task.type = TaskType.hourly
         return MinuteSelector(self._future_task)
-    
+
     @property
     def day(self) -> HourSelector:
         self._future_task.type = TaskType.daily
         return HourSelector(self._future_task)
-    
+
     @property
     def monday(self) -> HourSelector:
         self._future_task.type = TaskType.weekly
@@ -105,7 +107,7 @@ class UnitSelector(Creator):
         self._future_task.type = TaskType.weekly
         self._future_task.fixed_weekday = 2
         return HourSelector(self._future_task)
-    
+
     @property
     def thursday(self) -> HourSelector:
         self._future_task.type = TaskType.weekly
@@ -123,13 +125,12 @@ class UnitSelector(Creator):
         self._future_task.type = TaskType.weekly
         self._future_task.fixed_weekday = 5
         return HourSelector(self._future_task)
-    
+
     @property
     def sunday(self) -> HourSelector:
         self._future_task.type = TaskType.weekly
         self._future_task.fixed_weekday = 6
         return HourSelector(self._future_task)
-    
 
     def month(self, day: int) -> HourSelector:
         if not isinstance(day, int):
@@ -140,7 +141,7 @@ class UnitSelector(Creator):
         self._future_task.type = TaskType.monthly
         self._future_task.fixed_month_day = day
         return HourSelector(self._future_task)
-    
+
     def january(self, day: int) -> HourSelector:
         """
         each january at the given day
@@ -151,7 +152,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 31:
             raise ValueError("day is out of range for this month")
         return self.__year(1, day)
-    
+
     def february(self, day: int) -> HourSelector:
         """
         each february at the given day
@@ -166,7 +167,7 @@ class UnitSelector(Creator):
             #! TODO: Warn user
             pass
         return self.__year(2, day)
-    
+
     def march(self, day: int) -> HourSelector:
         """
         each march at the given day
@@ -177,7 +178,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 31:
             raise ValueError("day is out of range for this month")
         return self.__year(3, day)
-    
+
     def april(self, day: int) -> HourSelector:
         """
         each april at the given day
@@ -188,7 +189,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 30:
             raise ValueError("day is out of range for this month")
         return self.__year(4, day)
-    
+
     def may(self, day: int) -> HourSelector:
         """
         each may at the given day
@@ -199,7 +200,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 31:
             raise ValueError("day is out of range for this month")
         return self.__year(5, day)
-    
+
     def june(self, day: int) -> HourSelector:
         """
         each june at the given day
@@ -210,7 +211,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 30:
             raise ValueError("day is out of range for this month")
         return self.__year(6, day)
-    
+
     def july(self, day: int) -> HourSelector:
         """
         each july at the given day
@@ -221,7 +222,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 31:
             raise ValueError("day is out of range for this month")
         return self.__year(7, day)
-    
+
     def august(self, day: int) -> HourSelector:
         """
         each august at the given day
@@ -232,7 +233,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 31:
             raise ValueError("day is out of range for this month")
         return self.__year(8, day)
-    
+
     def septeber(self, day: int) -> HourSelector:
         """
         each september at the given day
@@ -243,7 +244,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 30:
             raise ValueError("day is out of range for this month")
         return self.__year(9, day)
-    
+
     def october(self, day: int) -> HourSelector:
         """
         each october at the given day
@@ -254,7 +255,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 31:
             raise ValueError("day is out of range for this month")
         return self.__year(10, day)
-    
+
     def november(self, day: int) -> HourSelector:
         """
         each november at the given day
@@ -265,7 +266,7 @@ class UnitSelector(Creator):
         if not 1 <= int(day) <= 30:
             raise ValueError("day is out of range for this month")
         return self.__year(11, day)
-    
+
     def december(self, day: int) -> HourSelector:
         """
         each december at the given day
@@ -310,7 +311,7 @@ class UnitsSelector(Creator):
     def hours(self) -> MinuteSelector:
         self._future_task.type = TaskType.hourly
         return MinuteSelector(self._future_task)
-    
+
     @property
     def days(self) -> HourSelector:
         self._future_task.type = TaskType.daily
@@ -321,7 +322,7 @@ class SecondSelector(Creator):
     def __init__(self, future_task: FutureTask) -> None:
         super().__init__(future_task)
 
-    def at(self, second: int=0) -> TaskFinalizer:
+    def at(self, second: int = 0) -> TaskFinalizer:
         """
         The second to run.
         :param second: must be in 0..59
@@ -329,7 +330,7 @@ class SecondSelector(Creator):
         utils.validate_time(second)
         self._future_task.at_time = [second]
         return TaskFinalizer(self._future_task)
-    
+
     def run(self, func: Callable, *args, **kwargs) -> tasks.ScheduledTask:
         """run every minute at HH:MM:00"""
         return self.at().run(func, *args, **kwargs)
@@ -339,7 +340,7 @@ class MinuteSelector(Creator):
     def __init__(self, future_task: FutureTask) -> None:
         super().__init__(future_task)
 
-    def at(self, minute: int=0, second: int=0)-> TaskFinalizer:
+    def at(self, minute: int = 0, second: int = 0) -> TaskFinalizer:
         """
         The minute to run.
         :param minute: must be in 0..59
@@ -348,7 +349,7 @@ class MinuteSelector(Creator):
         utils.validate_time(second, minute)
         self._future_task.at_time = [minute, second]
         return TaskFinalizer(self._future_task)
-    
+
     def run(self, func: Callable, *args, **kwargs) -> tasks.ScheduledTask:
         """run every hour at HH:00:00"""
         return self.at().run(func, *args, **kwargs)
@@ -358,7 +359,7 @@ class HourSelector(Creator):
     def __init__(self, future_task: FutureTask) -> None:
         super().__init__(future_task)
 
-    def at(self, hour: int=0, minute: int=0, second: int=0)-> TaskFinalizer:
+    def at(self, hour: int = 0, minute: int = 0, second: int = 0) -> TaskFinalizer:
         """
         The time to run.
         :param hour: must be in 0..23
@@ -368,19 +369,18 @@ class HourSelector(Creator):
         utils.validate_time(second, minute, hour)
         self._future_task.at_time = [hour, minute, second]
         return TaskFinalizer(self._future_task)
-    
+
     # TODO: Maybe implement this
     # @property
     # def midnight(self) -> TaskFinalizer:
     #     """at 00:00:00"""
     #     return self.at()
-    
+
     # @property
     # def noon(self) -> TaskFinalizer:
     #     """at 12:00:00"""
     #     return self.at(12)
-    
+
     def run(self, func: Callable, *args, **kwargs) -> tasks.ScheduledTask:
         """run at 00:00:00"""
         return self.at().run(func, *args, **kwargs)
-
