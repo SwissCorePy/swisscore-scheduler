@@ -3,6 +3,7 @@
 # <p align="left">swisscore-scheduler
 <a href="https://pypi.org/project/swisscore-scheduler"><img src="https://img.shields.io/pypi/v/swisscore-scheduler.svg"></a>
 <a href="https://pypi.org/project/swisscore-scheduler"><img src="https://img.shields.io/pypi/pyversions/swisscore-scheduler.svg"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
  
  ***NOTE: This documentation is not complete yet!***
  
@@ -15,17 +16,15 @@
  
 ## <p align="left">Installation
 
-### install using pip <i>(recommended)</i>
+### install latest release <i>(recommended)</i>
  ***NOTE: If you are on macOS or Linux you may have to use `pip3`.***
 ```
 pip install swisscore-scheduler
 ```
 ### install from source
- ***NOTE: If you are on macOS or Linux you may have to use `python3`.***
+ ***NOTE: If you are on macOS or Linux you may have to use `pip3`.***
 ```
-git clone https://github.com/SwissCorePy/swisscore-scheduler
-cd swisscore-scheduler
-python setup.py install
+pip install git+https://github.com/SwissCorePy/swisscore-scheduler
 ```
 
 ---
