@@ -3,6 +3,7 @@
 # <p align="left">swisscore-scheduler
 <a href="https://pypi.org/project/swisscore-scheduler"><img src="https://img.shields.io/pypi/v/swisscore-scheduler.svg"></a>
 <a href="https://pypi.org/project/swisscore-scheduler"><img src="https://img.shields.io/pypi/pyversions/swisscore-scheduler.svg"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
  
  ***NOTE: This documentation is not complete yet!***
  
