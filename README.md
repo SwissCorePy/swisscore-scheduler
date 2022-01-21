@@ -16,7 +16,7 @@
  
 ## <p align="left">Installation
 
-### install latest release<i>(recommended)</i>
+### install latest release <i>(recommended)</i>
  ***NOTE: If you are on macOS or Linux you may have to use `pip3`.***
 ```
 pip install swisscore-scheduler
