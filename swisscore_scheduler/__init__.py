@@ -2,7 +2,7 @@ import logging as __logging
 
 logger = __logging.getLogger(__name__)
 __formatter = __logging.Formatter(
-    "%(levelname)s: (%(asctime)s.%(msecs)03d) - %(message)s", "%m/%d/%Y %H:%M:%S"
+    "(%(asctime)s.%(msecs)03d): %(levelname)s - %(message)s", "%m/%d/%Y %H:%M:%S"
 )
 __stream_handler = __logging.StreamHandler()
 __stream_handler.setFormatter(__formatter)

@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from ctypes import Union
 from datetime import datetime, time, timedelta
-from typing import Dict, List, Optional, Callable
+from typing import Awaitable, Dict, List, Optional, Callable
 
 from . import creation_helper, tasks
 from . import logger
@@ -99,7 +99,7 @@ class AsyncScheduler:
 
         def wrapper(func):
             async def handler(*args, **kwargs):
-                if asyncio.iscoroutinefunction(func):
+                if asyncio.iscoroutinefunction(func) or isinstance(func, Awaitable):
                     return await func(*args, **kwargs)
                 else:
                     return func(*args, **kwargs)

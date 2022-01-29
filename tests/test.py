@@ -1,8 +1,6 @@
-
 import asyncio
 from datetime import datetime, timedelta
 import logging
-from sched import scheduler
 import unittest
 
 from swisscore_scheduler import AsyncScheduler, TaskType, ScheduledTask
@@ -10,8 +8,10 @@ from swisscore_scheduler import AsyncScheduler, TaskType, ScheduledTask
 logger = logging.getLogger("swisscore_scheduler")
 logger.setLevel(logging.CRITICAL)
 
+
 def func(x=1):
     return 1 / x
+
 
 async def coro(x=1):
     return 1 / x
@@ -49,16 +49,16 @@ class TestPeriodic(unittest.TestCase):
         scheduler = AsyncScheduler()
         t = scheduler.each.hour.at(45).run(func, 1)
         self.assertEqual(t.type, TaskType.hourly)
-        self.assertLessEqual(t.wait_time, 60*60)
+        self.assertLessEqual(t.wait_time, 60 * 60)
         self.assertEqual(t.next_run.minute, 45)
-    
+
     def test_daily(self):
         scheduler = AsyncScheduler()
         t = scheduler.each.day.at(12, 30).run(func, 1)
         self.assertEqual(t.type, TaskType.daily)
         self.assertEqual(t.next_run.hour, 12)
         self.assertEqual(t.next_run.minute, 30)
-    
+
     def test_weekly(self):
         scheduler = AsyncScheduler()
         t = scheduler.each.monday.at(6, 30).run(func, 1)
@@ -66,7 +66,7 @@ class TestPeriodic(unittest.TestCase):
         self.assertEqual(t.fixed_weekday, 0)
         self.assertEqual(t.next_run.hour, 6)
         self.assertEqual(t.next_run.minute, 30)
-    
+
     def test_monthly(self):
         scheduler = AsyncScheduler()
         t = scheduler.each.month(13).at(6, 30).run(func, 1)
@@ -77,7 +77,7 @@ class TestPeriodic(unittest.TestCase):
         self.assertEqual(t.next_run.day, 13)
         self.assertEqual(t.next_run.hour, 6)
         self.assertEqual(t.next_run.minute, 30)
-    
+
     def test_yearly(self):
         scheduler = AsyncScheduler()
         t = scheduler.each.january(5).at(6, 30).run(func, 1)
@@ -109,9 +109,9 @@ class TestPeriodicInterval(unittest.TestCase):
         scheduler = AsyncScheduler()
         t = scheduler.every(2).hours.at(45).run(func, 1)
         self.assertEqual(t.type, TaskType.hourly)
-        self.assertLessEqual(t.wait_time, 2*60*60)
+        self.assertLessEqual(t.wait_time, 2 * 60 * 60)
         self.assertEqual(t.next_run.minute, 45)
-    
+
     def test_daily(self):
         scheduler = AsyncScheduler()
         t = scheduler.every(2).days.at(12, 30).run(func, 1)
@@ -126,13 +126,13 @@ class TestOnetime(unittest.TestCase):
         t = scheduler.after(seconds=30).run(func, 1)
         self.assertEqual(t.type, TaskType.one_time)
         self.assertLessEqual(t.wait_time, 30)
-    
+
     def test_after_mixed(self):
         scheduler = AsyncScheduler()
         t = scheduler.after(days=1, hours=1, minutes=1, seconds=30).run(func, 1)
         self.assertEqual(t.type, TaskType.one_time)
-        self.assertLessEqual(t.wait_time, 90 + 60*60 + 24*60*60)
-    
+        self.assertLessEqual(t.wait_time, 90 + 60 * 60 + 24 * 60 * 60)
+
     def test_at(self):
         scheduler = AsyncScheduler()
         dt = datetime.now() + timedelta(seconds=30)
@@ -173,8 +173,12 @@ class TestSchedulerConcurrently(unittest.IsolatedAsyncioTestCase):
         scheduler.after(seconds=1).run(coro, 1).add_tags("working")
         scheduler.after(seconds=1).run(coro, 0).add_tags("failing")
 
-        scheduler.at(datetime.now() + timedelta(seconds=1)).run(coro, 1).add_tags("working")
-        scheduler.at(datetime.now() + timedelta(seconds=1)).run(coro, 0).add_tags("failing")
+        scheduler.at(datetime.now() + timedelta(seconds=1)).run(coro, 1).add_tags(
+            "working"
+        )
+        scheduler.at(datetime.now() + timedelta(seconds=1)).run(coro, 0).add_tags(
+            "failing"
+        )
 
         scheduler.start_concurrently()
         while len(scheduler.tasks) > 0:
@@ -213,11 +217,15 @@ class TestScheduler(unittest.TestCase):
         scheduler.after(seconds=1).run(func, 1).add_tags("working")
         scheduler.after(seconds=1).run(func, 0).add_tags("failing")
 
-        scheduler.at(datetime.now() + timedelta(seconds=1)).run(func, 1).add_tags("working")
-        scheduler.at(datetime.now() + timedelta(seconds=1)).run(func, 0).add_tags("failing")
+        scheduler.at(datetime.now() + timedelta(seconds=1)).run(func, 1).add_tags(
+            "working"
+        )
+        scheduler.at(datetime.now() + timedelta(seconds=1)).run(func, 0).add_tags(
+            "failing"
+        )
 
         scheduler.start()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

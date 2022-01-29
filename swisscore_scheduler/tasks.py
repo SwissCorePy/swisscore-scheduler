@@ -1,11 +1,9 @@
 from __future__ import annotations
-from abc import ABC, abstractmethod
 
 import asyncio
-from enum import Enum
 from time import perf_counter
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Callable, Tuple, Union
+from typing import Awaitable, Dict, List, Optional, Any, Callable, Tuple, Union
 
 from . import creation_helper, scheduler, utils
 from . import logger
@@ -272,7 +270,9 @@ class ScheduledTask:
         start_time = perf_counter()
         try:
             logger.debug(f"Running function: {self._funcstr}")
-            if asyncio.iscoroutinefunction(self.func):
+            if asyncio.iscoroutinefunction(self.func) or isinstance(
+                self.func, Awaitable
+            ):
                 result = await self.func(*self.args, **self.kwargs)
             else:
                 result = self.func(*self.args, **self.kwargs)
