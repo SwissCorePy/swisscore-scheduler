@@ -10,7 +10,7 @@
  An easy to use scheduler that works with both regular and coroutine functions.<br />
  It can running concurrently.<br />
  ***It requires python 3.10 or higher, because it was written and testet in this version. But lower versions may be supported in the future. <br />
- The syntax is inspired by the `shedule` module.*** 
+ The syntax is inspired by the `schedule` module.*** 
 
 ---
  
