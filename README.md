@@ -110,7 +110,7 @@ asyncio.run(main)
 ```python
 # first way
 task1 = scheduler.each.second.run(func, *args, **kwargs)
-task.add_tags("some", "tags")
+task1.add_tags("some", "tags")
 
 # second way
 task2 = scheduler.each.second.run(func, *args, **kwargs).add_tags("some", "other", "tags")
