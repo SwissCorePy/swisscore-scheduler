@@ -99,7 +99,7 @@ async def main():
     finally:
         scheduler.stop()
 
-asyncio.run(main)
+asyncio.run(main())
 ```
  
 ---
